@@ -17,8 +17,5 @@ public class Recipe extends ResourceSupport {
   String title;
 
   @NonNull
-  Direction direction;
-
-  @NonNull
-  List<Either<Integer, String>> test;
+  List<Either<Direction, DirectionGroup>> directions;
 }

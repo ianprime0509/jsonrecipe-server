@@ -16,6 +16,6 @@ public class DirectionDeserializer extends StdDeserializer<Direction> {
   @Override
   public Direction deserialize(JsonParser p, DeserializationContext ctxt)
       throws IOException, JsonProcessingException {
-    return new Direction(p.getText());
+    return new Direction(ctxt.readValue(p, String.class));
   }
 }
