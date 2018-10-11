@@ -22,7 +22,6 @@ public class RecipeJacksonModule extends SimpleModule {
     @JsonCreator
     public RecipeMixin(@JsonProperty("title") String title,
         @JsonProperty("ingredients") List<Either<Ingredient, IngredientGroup>> ingredients,
-        // @JsonProperty("group") IngredientGroup group,
         @JsonProperty("directions") List<Either<Direction, DirectionGroup>> directions) {}
   }
 
