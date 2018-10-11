@@ -20,6 +20,18 @@ public class FractionSerializer extends StdSerializer<Fraction> {
     int whole = value.getNumerator() / denominator;
     int numerator = value.getNumerator() - whole * denominator;
 
-    gen.writeString(whole + " " + numerator + "/" + denominator);
+    // We need to make sure we don't include useless information, like 0 for the whole number part.
+    StringBuilder formatted = new StringBuilder();
+    if (whole != 0) {
+      formatted.append(whole);
+    }
+    if (numerator != 0) {
+      if (formatted.length() != 0) {
+        formatted.append(' ');
+      }
+      formatted.append(numerator + "/" + denominator);
+    }
+
+    gen.writeString(formatted.toString());
   }
 }

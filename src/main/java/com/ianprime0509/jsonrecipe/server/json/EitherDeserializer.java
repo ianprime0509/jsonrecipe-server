@@ -3,11 +3,13 @@ package com.ianprime0509.jsonrecipe.server.json;
 import java.io.IOException;
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.core.ObjectCodec;
 import com.fasterxml.jackson.databind.BeanProperty;
 import com.fasterxml.jackson.databind.DeserializationContext;
 import com.fasterxml.jackson.databind.JavaType;
 import com.fasterxml.jackson.databind.JsonDeserializer;
 import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.deser.ContextualDeserializer;
 import com.fasterxml.jackson.databind.deser.std.StdDeserializer;
 import com.ianprime0509.jsonrecipe.server.entities.Either;
@@ -50,11 +52,25 @@ public class EitherDeserializer extends StdDeserializer<Either<?, ?>>
   @Override
   public Either<?, ?> deserialize(JsonParser p, DeserializationContext ctxt)
       throws IOException, JsonProcessingException {
+    ObjectCodec codec = p.getCodec();
+    // We need to read in the current parse tree so it can be reused; we will potentially need to
+    // traverse the tree twice, which will not be possible if we don't reuse this tree (there is no
+    // way to "reset" a JsonParser to an earlier position).
+    JsonNode rootNode = p.readValueAsTree();
+
     try {
-      return Either.right(ctxt.readValue(p, rightType));
+      JsonParser rootParser = codec.treeAsTokens(rootNode);
+      // It doesn't seem to be documented anywhere, but the parser returned from the treeAsTokens
+      // method does not point at any token initially, but all deserializers expect the parser to be
+      // pointing at the first token of whatever they have to deserialize. Thus, we need to
+      // explicitly tell our parser to point at the first token of the tree.
+      rootParser.nextToken();
+      return Either.left(ctxt.readValue(rootParser, leftType));
     } catch (JsonProcessingException e) {
-      // Not of the right type; try the left type.
-      return Either.left(ctxt.readValue(p, leftType));
+      // Not of the left type; try the right type.
+      JsonParser rootParser = codec.treeAsTokens(rootNode);
+      rootParser.nextToken();
+      return Either.right(ctxt.readValue(rootParser, rightType));
     }
   }
 }

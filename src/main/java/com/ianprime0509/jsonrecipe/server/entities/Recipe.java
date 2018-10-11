@@ -30,8 +30,7 @@ public class Recipe extends ResourceSupport {
    * The ingredients of the recipe.
    */
   @NonNull
-  // List<Either<Ingredient, IngredientGroup>> ingredients;
-  IngredientGroup group;
+  List<Either<Ingredient, IngredientGroup>> ingredients;
 
   /**
    * The instructions for preparing the finished product from the ingredients.
