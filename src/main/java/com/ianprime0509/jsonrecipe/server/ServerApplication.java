@@ -1,5 +1,6 @@
 package com.ianprime0509.jsonrecipe.server;
 
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.ianprime0509.jsonrecipe.server.json.RecipeJacksonModule;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -12,8 +13,10 @@ public class ServerApplication {
     SpringApplication.run(ServerApplication.class, args);
   }
 
+  // By declaring the JSONRecipe Jackson module here as a bean, Spring will register it
+  // automatically with the ObjectMapper.
   @Bean
-  public Jackson2ObjectMapperBuilderCustomizer objectMapperCustomizer() {
-    return builder -> builder.modules(new RecipeJacksonModule());
+  public RecipeJacksonModule recipeJacksonModule() {
+    return new RecipeJacksonModule();
   }
 }
