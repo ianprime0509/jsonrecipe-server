@@ -7,15 +7,35 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NonNull;
 
+/**
+ * A culinary recipe, consisting of a list of ingredients and directions for combining those
+ * ingredients to create a food.
+ */
 @Data
 @EqualsAndHashCode(callSuper = false)
 public class Recipe extends ResourceSupport {
+  /**
+   * The ID of the recipe in the database.
+   */
   @Id
   String recipeId;
 
+  /**
+   * The title of the recipe.
+   */
   @NonNull
   String title;
 
+  /**
+   * The ingredients of the recipe.
+   */
+  @NonNull
+  // List<Either<Ingredient, IngredientGroup>> ingredients;
+  IngredientGroup group;
+
+  /**
+   * The instructions for preparing the finished product from the ingredients.
+   */
   @NonNull
   List<Either<Direction, DirectionGroup>> directions;
 }

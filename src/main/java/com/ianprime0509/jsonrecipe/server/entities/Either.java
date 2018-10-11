@@ -1,9 +1,5 @@
 package com.ianprime0509.jsonrecipe.server.entities;
 
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import com.ianprime0509.jsonrecipe.server.json.EitherDeserializer;
-import com.ianprime0509.jsonrecipe.server.json.EitherSerializer;
 import lombok.EqualsAndHashCode;
 import lombok.Value;
 
@@ -13,8 +9,6 @@ import lombok.Value;
  * @param <L> the left type
  * @param <R> the right type
  */
-@JsonSerialize(using = EitherSerializer.class)
-@JsonDeserialize(using = EitherDeserializer.class)
 public abstract class Either<L, R> {
   @Value(staticConstructor = "of")
   @EqualsAndHashCode(callSuper = false)
