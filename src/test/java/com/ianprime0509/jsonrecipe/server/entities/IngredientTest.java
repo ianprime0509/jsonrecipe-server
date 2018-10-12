@@ -52,4 +52,16 @@ public class IngredientTest {
   public void testParse_withMissingUnit_fails() {
     Ingredient.parse("1 apple");
   }
+
+  @Test
+  public void testToString() {
+    assertEquals("1/2 pound potatoes, diced, peeled",
+        new Ingredient(new Fraction(1, 2), "pound", "potatoes", Arrays.asList("diced", "peeled"))
+            .toString());
+  }
+
+  @Test
+  public void testToString_implicitUnit() {
+    assertEquals("3 each green apples", new Ingredient(new Fraction(3), "green apples").toString());
+  }
 }
