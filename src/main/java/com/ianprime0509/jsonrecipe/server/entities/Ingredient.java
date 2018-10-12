@@ -1,19 +1,24 @@
 package com.ianprime0509.jsonrecipe.server.entities;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 import com.ianprime0509.jsonrecipe.server.util.FractionUtils;
 import org.apache.commons.math3.fraction.Fraction;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
 
 /**
  * An ingredient in a recipe.
  */
 @Data
+@RequiredArgsConstructor
+@AllArgsConstructor
 public class Ingredient {
   /**
    * The regex for human-readable ingredient strings, as taken from the schema definition.
@@ -26,12 +31,13 @@ public class Ingredient {
    * {@link FractionUtils#parseFraction(String)}.</li>
    * <li>The unit.</li>
    * <li>The item.</li>
-   * <li>Each preparation direction, as a separate capturing group.</li>
+   * <li>All the preparation directions as one big capturing group (which may be an empty string, if
+   * there are none).</li>
    * </ol>
    * </p>
    */
   public static final Pattern INGREDIENT_PATTERN = Pattern.compile(
-      "([1-9][0-9]* ?(:?(:?/| [1-9][0-9]* ?/) ?[1-9][0-9]*)?) ([^ ]+) ([^,]*[^, ])(:?, ([^,]*[^, ]))*");
+      "([1-9][0-9]* ?(?:(?:/| [1-9][0-9]* ?/) ?[1-9][0-9]*)?) ([^ ]+) ([^,]*[^, ])((:?, [^,]*[^, ])*)");
 
   /**
    * The quantity of the specified item, in terms of the specified unit.
@@ -43,7 +49,7 @@ public class Ingredient {
    * The unit of measurement which the specified quantity uses (e.g. "cup").
    */
   @NonNull
-  private String unit;
+  private String unit = "each";
 
   /**
    * The item of which this ingredient consists (e.g. "apple").
@@ -55,7 +61,7 @@ public class Ingredient {
    * How the ingredient should be prepared prior to use (e.g. "chopped").
    */
   @NonNull
-  private List<String> preparation;
+  private List<String> preparation = new ArrayList<>();
 
   /**
    * Parses a human-readable ingredient string.
@@ -80,15 +86,25 @@ public class Ingredient {
    */
   public static Ingredient parse(String ingredient) {
     Matcher matcher = INGREDIENT_PATTERN.matcher(ingredient);
+    if (!matcher.matches()) {
+      throw new IllegalArgumentException("Not a valid ingredient string.");
+    }
+
     Fraction quantity = FractionUtils.parseFraction(matcher.group(1));
     String unit = matcher.group(2);
     String item = matcher.group(3);
-    List<String> preparation = new ArrayList<>();
-    for (int i = 4; i <= matcher.groupCount(); i++) {
-      preparation.add(matcher.group(i));
-    }
+    // We need to skip the first element, because it will be an empty
+    // string (due to the leading comma).
+    List<String> preparation = Arrays.stream(matcher.group(4).split(", ")) //
+        .skip(1) //
+        .collect(Collectors.toList());
 
     return new Ingredient(quantity, unit, item, preparation);
+  }
+
+  public Ingredient(Fraction quantity, String unit, String item) {
+    this(quantity, item);
+    this.unit = unit;
   }
 
   /**
