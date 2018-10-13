@@ -38,13 +38,6 @@ public class RecipeJacksonModule extends SimpleModule {
         @JsonProperty("directions") List<Either<Direction, DirectionGroup>> directions) {}
   }
 
-  private static abstract class IngredientMixin {
-    @JsonCreator
-    public IngredientMixin(@JsonProperty("quantity") Fraction quantity,
-        @JsonProperty("unit") String unit, @JsonProperty("item") String item,
-        @JsonProperty("preparation") List<String> preparation) {}
-  }
-
   private static abstract class IngredientGroupMixin {
     @JsonCreator
     public IngredientGroupMixin(@JsonProperty("heading") String heading,
@@ -79,9 +72,9 @@ public class RecipeJacksonModule extends SimpleModule {
     addSerializer((Class<Either<?, ?>>) (Class<?>) Either.class, new EitherSerializer());
     addDeserializer((Class<Either<?, ?>>) (Class<?>) Either.class, new EitherDeserializer());
     addDeserializer(Location.class, new LocationDeserializer());
+    addDeserializer(Ingredient.class, new IngredientDeserializer());
 
     setMixInAnnotation(Recipe.class, RecipeMixin.class);
-    setMixInAnnotation(Ingredient.class, IngredientMixin.class);
     setMixInAnnotation(IngredientGroup.class, IngredientGroupMixin.class);
     setMixInAnnotation(DirectionGroup.class, DirectionGroupMixin.class);
     setMixInAnnotation(Source.class, SourceMixin.class);

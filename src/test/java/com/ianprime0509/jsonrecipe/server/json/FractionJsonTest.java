@@ -37,7 +37,7 @@ public class FractionJsonTest {
   }
 
   @Test
-  public void testDeserialize_wholeNumber_fromNumber() throws Exception {
+  public void testDeserialize_wholeNumberFromNumber() throws Exception {
     assertThat(json.parse("5")).isEqualTo(new Fraction(5));
   }
 
