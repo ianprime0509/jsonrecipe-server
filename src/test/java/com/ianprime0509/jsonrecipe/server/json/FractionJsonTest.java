@@ -17,42 +17,42 @@ public class FractionJsonTest {
   private JacksonTester<Fraction> json;
 
   @Test
-  public void testSerializeWholeNumber() throws Exception {
+  public void testSerialize_wholeNumber() throws Exception {
     assertThat(json.write(new Fraction(4))).isEqualToJson("\"4\"");
   }
 
   @Test
-  public void testSerializePureFraction() throws Exception {
+  public void testSerialize_pureFraction() throws Exception {
     assertThat(json.write(new Fraction(3, 7))).isEqualToJson("\"3/7\"");
   }
 
   @Test
-  public void testSerializeMixedNumber() throws Exception {
+  public void testSerialize_mixedNumber() throws Exception {
     assertThat(json.write(new Fraction(5, 3))).isEqualToJson("\"1 2/3\"");
   }
 
   @Test
-  public void testDeserializeWholeNumber() throws Exception {
+  public void testDeserialize_wholeNumber() throws Exception {
     assertThat(json.parse("\"3\"")).isEqualTo(new Fraction(3));
   }
 
   @Test
-  public void testDeserializeWholeNumber_fromNumber() throws Exception {
+  public void testDeserialize_wholeNumber_fromNumber() throws Exception {
     assertThat(json.parse("5")).isEqualTo(new Fraction(5));
   }
 
   @Test
-  public void testDeserializePureFraction() throws Exception {
+  public void testDeserialize_pureFraction() throws Exception {
     assertThat(json.parse("\"2/3\"")).isEqualTo(new Fraction(2, 3));
   }
 
   @Test
-  public void testDeserializeMixedNumber() throws Exception {
+  public void testDeserialize_mixedNumber() throws Exception {
     assertThat(json.parse("\"1 3/4\"")).isEqualTo(new Fraction(7, 4));
   }
 
   @Test
-  public void testDeserializeDecimal_fails() throws Exception {
+  public void testDeserialize_decimal_fails() throws Exception {
     assertThatExceptionOfType(Exception.class).isThrownBy(() -> json.parse("2.5"));
   }
 }
