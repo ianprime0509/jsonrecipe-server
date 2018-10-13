@@ -1,6 +1,7 @@
 package com.ianprime0509.jsonrecipe.server.entities;
 
-import static org.junit.Assert.assertEquals;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatIllegalArgumentException;
 import com.ianprime0509.jsonrecipe.server.util.FractionUtils;
 import org.apache.commons.math3.fraction.Fraction;
 import org.junit.Test;
@@ -14,46 +15,46 @@ import org.springframework.test.context.junit4.SpringRunner;
 public class FractionTest {
   @Test
   public void testParse_wholeNumber() {
-    assertEquals(new Fraction(2), FractionUtils.parseFraction("2"));
+    assertThat(FractionUtils.parseFraction("2")).isEqualTo(new Fraction(2));
   }
 
   @Test
   public void testParse_pureFraction() {
-    assertEquals(new Fraction(3, 4), FractionUtils.parseFraction("3/4"));
+    assertThat(FractionUtils.parseFraction("3/4")).isEqualTo(new Fraction(3, 4));
   }
 
   @Test
   public void testParse_mixedNumber() {
-    assertEquals(new Fraction(5, 4), FractionUtils.parseFraction("1 1/4"));
+    assertThat(FractionUtils.parseFraction("1 1/4")).isEqualTo(new Fraction(5, 4));
   }
 
   @Test
   public void testParse_pureFractionWithOptionalSpaces() {
-    assertEquals(new Fraction(1, 3), FractionUtils.parseFraction("1 / 3"));
+    assertThat(FractionUtils.parseFraction("1 / 3")).isEqualTo(new Fraction(1, 3));
   }
 
   @Test
   public void testParse_mixedNumberWithOptionalSpaces() {
-    assertEquals(new Fraction(9, 4), FractionUtils.parseFraction("2 1 / 4"));
+    assertThat(FractionUtils.parseFraction("2 1 / 4")).isEqualTo(new Fraction(9, 4));
   }
 
-  @Test(expected = IllegalArgumentException.class)
+  @Test
   public void testParse_mixedNumberWithTooManySpaces_fails() {
-    FractionUtils.parseFraction("1  1/2");
+    assertThatIllegalArgumentException().isThrownBy(() -> FractionUtils.parseFraction("1  1/2"));
   }
 
   @Test
   public void testToMixedNumberString_wholeNumber() {
-    assertEquals("5", FractionUtils.toMixedNumberString(new Fraction(5)));
+    assertThat(FractionUtils.toMixedNumberString(new Fraction(5))).isEqualTo("5");
   }
 
   @Test
   public void testToMixedNumberString_pureFraction() {
-    assertEquals("5/6", FractionUtils.toMixedNumberString(new Fraction(5, 6)));
+    assertThat(FractionUtils.toMixedNumberString(new Fraction(5, 6))).isEqualTo("5/6");
   }
 
   @Test
   public void testToMixedNumberString_mixedNumber() {
-    assertEquals("3 3/4", FractionUtils.toMixedNumberString(new Fraction(15, 4)));
+    assertThat(FractionUtils.toMixedNumberString(new Fraction(15, 4))).isEqualTo("3 3/4");
   }
 }

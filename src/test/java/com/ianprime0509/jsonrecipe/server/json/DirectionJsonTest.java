@@ -1,6 +1,6 @@
 package com.ianprime0509.jsonrecipe.server.json;
 
-import static org.assertj.core.api.Assertions.*;
+import static org.assertj.core.api.Assertions.assertThat;
 import com.ianprime0509.jsonrecipe.server.entities.Direction;
 import org.junit.Test;
 import org.junit.runner.RunWith;
