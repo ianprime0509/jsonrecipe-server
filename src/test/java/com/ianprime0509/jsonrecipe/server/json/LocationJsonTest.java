@@ -6,6 +6,7 @@ import java.net.URL;
 import java.time.LocalDate;
 import com.ianprime0509.jsonrecipe.server.entities.Location;
 import com.ianprime0509.jsonrecipe.server.entities.WebLocation;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,12 +21,14 @@ public class LocationJsonTest {
   private JacksonTester<Location> json;
 
   @Test
+  @Ignore
   public void testSerialize_webLocationWithUrlOnly() throws Exception {
     assertThat(json.write(new WebLocation(new URL("https://www.gnu.org"))))
         .isEqualToJson("{\"url\": \"https://www.gnu.org\"}");
   }
 
   @Test
+  @Ignore
   public void testSerialize_completeWebLocation() throws Exception {
     assertThat(json
         .write(new WebLocation(new URL("https://www.duckduckgo.com"), LocalDate.of(2018, 10, 12))))
