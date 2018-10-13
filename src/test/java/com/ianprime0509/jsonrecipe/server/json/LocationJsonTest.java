@@ -4,6 +4,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 import java.net.URL;
 import java.time.LocalDate;
+import com.fasterxml.jackson.databind.JsonMappingException;
 import com.ianprime0509.jsonrecipe.server.entities.Location;
 import com.ianprime0509.jsonrecipe.server.entities.WebLocation;
 import org.junit.Ignore;
@@ -52,7 +53,7 @@ public class LocationJsonTest {
 
   @Test
   public void testDeserialize_unknownLocationType_fails() throws Exception {
-    assertThatExceptionOfType(Exception.class)
+    assertThatExceptionOfType(JsonMappingException.class)
         .isThrownBy(() -> json.parse("\"location\": \"somewhere\""));
   }
 }

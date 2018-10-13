@@ -2,6 +2,7 @@ package com.ianprime0509.jsonrecipe.server.json;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
+import com.fasterxml.jackson.databind.JsonMappingException;
 import org.apache.commons.math3.fraction.Fraction;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -53,6 +54,6 @@ public class FractionJsonTest {
 
   @Test
   public void testDeserialize_decimal_fails() throws Exception {
-    assertThatExceptionOfType(Exception.class).isThrownBy(() -> json.parse("2.5"));
+    assertThatExceptionOfType(JsonMappingException.class).isThrownBy(() -> json.parse("2.5"));
   }
 }

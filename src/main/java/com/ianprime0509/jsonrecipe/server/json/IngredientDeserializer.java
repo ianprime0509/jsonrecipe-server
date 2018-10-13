@@ -25,7 +25,11 @@ public class IngredientDeserializer extends StdDeserializer<Ingredient> {
     JsonNode rootNode = p.readValueAsTree();
     if (rootNode.isTextual()) {
       // Parse ingredient as human-readable string.
-      return Ingredient.parse(rootNode.asText());
+      try {
+        return Ingredient.parse(rootNode.asText());
+      } catch (IllegalArgumentException e) {
+        throw JsonMappingException.from(ctxt, "Invalid ingredient string.", e);
+      }
     }
 
     // Parse ingredient manually.

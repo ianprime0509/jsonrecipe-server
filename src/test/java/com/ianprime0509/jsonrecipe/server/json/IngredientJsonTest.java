@@ -1,7 +1,9 @@
 package com.ianprime0509.jsonrecipe.server.json;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 import java.util.Arrays;
+import com.fasterxml.jackson.databind.JsonMappingException;
 import com.ianprime0509.jsonrecipe.server.entities.Ingredient;
 import org.apache.commons.math3.fraction.Fraction;
 import org.junit.Test;
@@ -55,5 +57,23 @@ public class IngredientJsonTest {
   public void testDeserialize_fromIngredientStringWithAllFields() throws Exception {
     assertThat(json.parse("\"1 1/2 cups potatoes, diced, boiled\"")).isEqualTo(
         new Ingredient(new Fraction(3, 2), "cups", "potatoes", Arrays.asList("diced", "boiled")));
+  }
+
+  @Test
+  public void testDeserialize_fromInvalidIngredientString_fails() throws Exception {
+    assertThatExceptionOfType(JsonMappingException.class)
+        .isThrownBy(() -> json.parse("\"1 apple\""));
+  }
+
+  @Test
+  public void testDeserialize_fromObjectMissingQuantity_fails() throws Exception {
+    assertThatExceptionOfType(JsonMappingException.class)
+        .isThrownBy(() -> json.parse("{\"item\": \"green peas\"}"));
+  }
+
+  @Test
+  public void testDeserialize_fromObjectMissingItem_fails() throws Exception {
+    assertThatExceptionOfType(JsonMappingException.class)
+        .isThrownBy(() -> json.parse("{\"quantity\": \"2 1/2\", \"unit\": \"cups\"}"));
   }
 }

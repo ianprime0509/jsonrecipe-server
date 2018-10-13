@@ -1,7 +1,9 @@
 package com.ianprime0509.jsonrecipe.server.json;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 import java.util.Arrays;
+import com.fasterxml.jackson.databind.JsonMappingException;
 import com.ianprime0509.jsonrecipe.server.entities.Either;
 import com.ianprime0509.jsonrecipe.server.entities.Ingredient;
 import com.ianprime0509.jsonrecipe.server.entities.IngredientGroup;
@@ -51,5 +53,11 @@ public class EitherJsonTest {
         .parse("{\"heading\": \"Test group\", \"ingredients\": [\"2 each apples\"]}"))
             .isEqualTo(Either.right(new IngredientGroup("Test group",
                 Arrays.asList(new Ingredient(new Fraction(2), "apples")))));
+  }
+
+  @Test
+  public void testDeserialize_ingredientOrGroupWithEmptyObject_fails() throws Exception {
+    assertThatExceptionOfType(JsonMappingException.class)
+        .isThrownBy(() -> ingredientOrGroupJson.parse("{}"));
   }
 }

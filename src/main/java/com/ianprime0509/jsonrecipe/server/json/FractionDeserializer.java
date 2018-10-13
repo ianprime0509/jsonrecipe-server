@@ -4,6 +4,7 @@ import java.io.IOException;
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.deser.std.StdDeserializer;
 import com.ianprime0509.jsonrecipe.server.util.FractionUtils;
 import org.apache.commons.math3.fraction.Fraction;
@@ -18,6 +19,10 @@ public class FractionDeserializer extends StdDeserializer<Fraction> {
   public Fraction deserialize(JsonParser p, DeserializationContext ctxt)
       throws IOException, JsonProcessingException {
     String fraction = ctxt.readValue(p, String.class);
-    return FractionUtils.parseFraction(fraction);
+    try {
+      return FractionUtils.parseFraction(fraction);
+    } catch (IllegalArgumentException e) {
+      throw JsonMappingException.from(ctxt, "Invalid fraction input", e);
+    }
   }
 }
