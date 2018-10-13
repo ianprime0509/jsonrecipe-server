@@ -43,9 +43,8 @@ public class EitherDeserializer extends StdDeserializer<Either<?, ?>>
     // Thanks to https://stackoverflow.com/a/36223769 for guidance on this implementation.
     JavaType wrapperType = ctxt.getContextualType();
     EitherDeserializer deserializer = new EitherDeserializer();
-    deserializer.rightType = wrapperType.containedType(0);
-    deserializer.leftType = wrapperType.containedType(1);
-    System.out.println("Right: " + deserializer.rightType + " Left: " + deserializer.leftType);
+    deserializer.leftType = wrapperType.containedType(0);
+    deserializer.rightType = wrapperType.containedType(1);
     return deserializer;
   }
 

@@ -3,6 +3,7 @@ package com.ianprime0509.jsonrecipe.server.entities;
 import java.util.List;
 import org.springframework.data.annotation.Id;
 import org.springframework.hateoas.ResourceSupport;
+import lombok.Builder;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NonNull;
@@ -13,6 +14,7 @@ import lombok.NonNull;
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
+@Builder
 public class Recipe extends ResourceSupport {
   /**
    * The ID of the recipe in the database.

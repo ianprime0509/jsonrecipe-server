@@ -1,0 +1,71 @@
+{
+  "title": "Authentic German potato salad",
+  "source": {
+    "author": "Angela Louise Miller",
+    "location": {
+      "url": "https://www.allrecipes.com/recipe/83097/authentic-german-potato-salad/",
+      "retrievalDate": "2018-08-11"
+    }
+  },
+  "ingredients": [
+    {
+      "quantity": "3",
+      "unit": "cups",
+      "item": "potatoes",
+      "preparation": ["diced", "peeled"]
+    },
+    {
+      "quantity": "4",
+      "unit": "slices",
+      "item": "bacon",
+      "preparation": []
+    },
+    {
+      "quantity": "1",
+      "unit": "each",
+      "item": "small onion",
+      "preparation": ["diced"]
+    },
+    {
+      "quantity": "1/4",
+      "unit": "cup",
+      "item": "white vinegar",
+      "preparation": []
+    },
+    {
+      "quantity": "2",
+      "unit": "tablespoons",
+      "item": "water",
+      "preparation": []
+    },
+    {
+      "quantity": "3",
+      "unit": "tablespoons",
+      "item": "white sugar",
+      "preparation": []
+    },
+    {
+      "quantity": "1",
+      "unit": "teaspoon",
+      "item": "salt",
+      "preparation": []
+    },
+    {
+      "quantity": "1/8",
+      "unit": "teaspoon",
+      "item": "black pepper",
+      "preparation": ["ground"]
+    },
+    {
+      "quantity": "1",
+      "unit": "tablespoon",
+      "item": "fresh parsley",
+      "preparation": ["chopped"]
+    }
+  ],
+  "directions": [
+    "Place the potatoes into a pot, and fill with enough water to cover. Bring to a boil, and cook for about 10 minutes, or until easily pierced with a fork. Drain, and set aside to cool.",
+    "Place the bacon in a large deep skillet over medium-high heat. Fry until browned and crisp, turning as needed. Remove from the pan and set aside.",
+    "Add onion to the bacon grease, and cook over medium heat until browned. Add the vinegar, water, sugar, salt and pepper to the pan. Bring to a boil, then add the potatoes and parsley. Crumble in half of the bacon. Heat through, then transfer to a serving dish. Crumble the remaining bacon over the top, and serve warm."
+  ]
+}
