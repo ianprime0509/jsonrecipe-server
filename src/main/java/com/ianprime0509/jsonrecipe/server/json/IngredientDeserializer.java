@@ -7,6 +7,7 @@ import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.ObjectCodec;
 import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.deser.std.StdDeserializer;
 import com.ianprime0509.jsonrecipe.server.entities.Ingredient;
@@ -29,6 +30,10 @@ public class IngredientDeserializer extends StdDeserializer<Ingredient> {
 
     // Parse ingredient manually.
     ObjectCodec codec = p.getCodec();
+    JsonNode quantityNode = rootNode.get("quantity");
+    if (quantityNode == null) {
+      throw JsonMappingException.from(ctxt, "Quantity is required in ingredient objects.");
+    }
     Fraction quantity = codec.treeAsTokens(rootNode.get("quantity")).readValueAs(Fraction.class);
 
     // Provide default unit of "each".
@@ -38,7 +43,11 @@ public class IngredientDeserializer extends StdDeserializer<Ingredient> {
       unit = unitNode.asText(unit);
     }
 
-    String item = rootNode.get("item").asText();
+    JsonNode itemNode = rootNode.get("item");
+    if (itemNode == null) {
+      throw JsonMappingException.from(ctxt, "Item is required in ingredient objects.");
+    }
+    String item = itemNode.asText();
 
     // Provide default empty array.
     List<String> preparation = new ArrayList<>();
