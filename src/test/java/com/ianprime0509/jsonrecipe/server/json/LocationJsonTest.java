@@ -22,7 +22,7 @@ public class LocationJsonTest {
   @Test
   public void testSerialize_webLocationWithUrlOnly() throws Exception {
     assertThat(json.write(new WebLocation(new URL("https://www.gnu.org"))))
-        .isEqualToJson("{\"url\": \"https://www.gnu.org\"}");;
+        .isEqualToJson("{\"url\": \"https://www.gnu.org\"}");
   }
 
   @Test
