@@ -1,7 +1,6 @@
 package com.ianprime0509.jsonrecipe.server.entities;
 
 import java.util.List;
-import org.springframework.data.annotation.Id;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NonNull;
@@ -13,12 +12,6 @@ import lombok.NonNull;
 @Data
 @Builder
 public class Recipe {
-  /**
-   * The ID of the recipe in the database.
-   */
-  @Id
-  String id;
-
   /**
    * The title of the recipe.
    */

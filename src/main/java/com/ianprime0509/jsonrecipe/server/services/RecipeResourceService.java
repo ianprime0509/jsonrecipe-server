@@ -1,6 +1,7 @@
 package com.ianprime0509.jsonrecipe.server.services;
 
 import java.util.Optional;
+import com.ianprime0509.jsonrecipe.server.data.RecipeDto;
 import com.ianprime0509.jsonrecipe.server.entities.Recipe;
 import com.ianprime0509.jsonrecipe.server.hateoas.RecipeResourceAssembler;
 import com.ianprime0509.jsonrecipe.server.repositories.RecipeRepository;
@@ -17,7 +18,7 @@ import lombok.RequiredArgsConstructor;
 public class RecipeResourceService {
   private final RecipeRepository repository;
   private final RecipeResourceAssembler resourceAssembler;
-  private final PagedResourcesAssembler<Recipe> pagedResourcesAssembler;
+  private final PagedResourcesAssembler<RecipeDto> pagedResourcesAssembler;
 
   public PagedResources<Resource<Recipe>> findAll(Pageable pageable) {
     return pagedResourcesAssembler.toResource(repository.findAll(pageable), resourceAssembler);
@@ -28,6 +29,6 @@ public class RecipeResourceService {
   }
 
   public Resource<Recipe> save(Recipe recipe) {
-    return resourceAssembler.toResource(repository.save(recipe));
+    return resourceAssembler.toResource(repository.save(new RecipeDto(recipe)));
   }
 }
