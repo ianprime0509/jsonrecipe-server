@@ -9,9 +9,11 @@ import org.springframework.hateoas.PagedResources;
 import org.springframework.hateoas.Resource;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -40,8 +42,20 @@ public class RecipeController {
 
   @PostMapping(consumes = JSON, produces = HAL_JSON)
   public ResponseEntity<Resource<Recipe>> add(@RequestBody Recipe recipe) {
-    Resource<Recipe> saved = service.save(recipe);
+    Resource<Recipe> saved = service.add(recipe);
     Link selfLink = saved.getLink(Link.REL_SELF);
     return ResponseEntity.created(selfLink.getTemplate().expand()).body(saved);
+  }
+
+  @PutMapping(path = "/{id}", consumes = JSON, produces = HAL_JSON)
+  public ResponseEntity<Resource<Recipe>> save(@PathVariable String id,
+      @RequestBody Recipe recipe) {
+    return ResponseEntity.ok(service.save(id, recipe));
+  }
+
+  @DeleteMapping(path = "/{id}")
+  public ResponseEntity<Void> delete(@PathVariable String id) {
+    service.delete(id);
+    return ResponseEntity.noContent().build();
   }
 }
