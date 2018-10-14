@@ -1,5 +1,6 @@
 package com.ianprime0509.jsonrecipe.server.entities;
 
+import org.springframework.data.annotation.PersistenceConstructor;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NonNull;
@@ -9,7 +10,7 @@ import lombok.RequiredArgsConstructor;
  * The source of a recipe (e.g. the person who wrote it and the book where it was found).
  */
 @Data
-@RequiredArgsConstructor
+@RequiredArgsConstructor(onConstructor_ = @PersistenceConstructor)
 @AllArgsConstructor
 public class Source {
   /**

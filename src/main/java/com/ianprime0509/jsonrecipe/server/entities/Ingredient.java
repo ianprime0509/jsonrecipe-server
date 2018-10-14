@@ -8,6 +8,7 @@ import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 import com.ianprime0509.jsonrecipe.server.util.FractionUtils;
 import org.apache.commons.math3.fraction.Fraction;
+import org.springframework.data.annotation.PersistenceConstructor;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NonNull;
@@ -17,7 +18,7 @@ import lombok.RequiredArgsConstructor;
  * An ingredient in a recipe.
  */
 @Data
-@RequiredArgsConstructor
+@RequiredArgsConstructor(onConstructor_ = @PersistenceConstructor)
 @AllArgsConstructor
 public class Ingredient {
   /**
