@@ -1,11 +1,12 @@
 package com.ianprime0509.jsonrecipe.server.controllers;
 
-import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
-import static org.springframework.hateoas.mvc.ControllerLinkBuilder.methodOn;
 import com.ianprime0509.jsonrecipe.server.entities.Recipe;
-import com.ianprime0509.jsonrecipe.server.services.RecipeService;
+import com.ianprime0509.jsonrecipe.server.services.RecipeResourceService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
 import org.springframework.hateoas.Link;
+import org.springframework.hateoas.PagedResources;
+import org.springframework.hateoas.Resource;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -23,19 +24,24 @@ public class RecipeController {
   private static final String HAL_JSON = "application/hal+json";
   private static final String JSON = MediaType.APPLICATION_JSON_UTF8_VALUE;
 
-  private final RecipeService service;
+  private final RecipeResourceService service;
+
+  @GetMapping(produces = HAL_JSON)
+  public PagedResources<Resource<Recipe>> findAll(Pageable pageable) {
+    return service.findAll(pageable);
+  }
 
   @GetMapping(path = "/{id}", produces = HAL_JSON)
-  public ResponseEntity<Recipe> findById(@PathVariable("id") String id) {
-    return service.findById(id).map(ResponseEntity::ok).orElse(ResponseEntity.notFound().build());
+  public ResponseEntity<Resource<Recipe>> findById(@PathVariable String id) {
+    return service.findById(id) //
+        .map(ResponseEntity::ok) //
+        .orElse(ResponseEntity.notFound().build());
   }
 
   @PostMapping(consumes = JSON, produces = HAL_JSON)
-  public ResponseEntity<Recipe> add(@RequestBody Recipe recipe) {
-    Recipe saved = service.save(recipe);
-    Link selfLink =
-        linkTo(methodOn(RecipeController.class).findById(saved.getRecipeId())).withSelfRel();
-    saved.add(selfLink);
+  public ResponseEntity<Resource<Recipe>> add(@RequestBody Recipe recipe) {
+    Resource<Recipe> saved = service.save(recipe);
+    Link selfLink = saved.getLink(Link.REL_SELF);
     return ResponseEntity.created(selfLink.getTemplate().expand()).body(saved);
   }
 }
