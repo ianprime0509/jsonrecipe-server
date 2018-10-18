@@ -2,6 +2,7 @@ package com.ianprime0509.jsonrecipe.server.controllers;
 
 import com.ianprime0509.jsonrecipe.server.entities.Recipe;
 import com.ianprime0509.jsonrecipe.server.services.RecipeResourceService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.hateoas.Link;
@@ -17,7 +18,6 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import lombok.RequiredArgsConstructor;
 
 @RestController
 @RequestMapping("/recipes")
@@ -35,7 +35,8 @@ public class RecipeController {
 
   @GetMapping(path = "/{id}", produces = HAL_JSON)
   public ResponseEntity<Resource<Recipe>> findById(@PathVariable String id) {
-    return service.findById(id) //
+    return service
+        .findById(id) //
         .map(ResponseEntity::ok) //
         .orElse(ResponseEntity.notFound().build());
   }
@@ -48,8 +49,8 @@ public class RecipeController {
   }
 
   @PutMapping(path = "/{id}", consumes = JSON, produces = HAL_JSON)
-  public ResponseEntity<Resource<Recipe>> save(@PathVariable String id,
-      @RequestBody Recipe recipe) {
+  public ResponseEntity<Resource<Recipe>> save(
+      @PathVariable String id, @RequestBody Recipe recipe) {
     return ResponseEntity.ok(service.save(id, recipe));
   }
 

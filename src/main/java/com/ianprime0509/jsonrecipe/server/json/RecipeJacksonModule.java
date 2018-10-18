@@ -2,6 +2,7 @@ package com.ianprime0509.jsonrecipe.server.json;
 
 import java.net.URL;
 import java.util.List;
+
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -16,6 +17,7 @@ import com.ianprime0509.jsonrecipe.server.entities.Location;
 import com.ianprime0509.jsonrecipe.server.entities.Recipe;
 import com.ianprime0509.jsonrecipe.server.entities.Source;
 import com.ianprime0509.jsonrecipe.server.entities.WebLocation;
+
 import org.apache.commons.math3.fraction.Fraction;
 
 /**
