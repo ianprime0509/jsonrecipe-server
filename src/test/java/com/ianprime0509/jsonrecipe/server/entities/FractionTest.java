@@ -2,15 +2,14 @@ package com.ianprime0509.jsonrecipe.server.entities;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatIllegalArgumentException;
+
 import com.ianprime0509.jsonrecipe.server.util.FractionUtils;
 import org.apache.commons.math3.fraction.Fraction;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.test.context.junit4.SpringRunner;
 
-/**
- * Tests for the {@link FractionUtils} class.
- */
+/** Tests for the {@link FractionUtils} class. */
 @RunWith(SpringRunner.class)
 public class FractionTest {
   @Test

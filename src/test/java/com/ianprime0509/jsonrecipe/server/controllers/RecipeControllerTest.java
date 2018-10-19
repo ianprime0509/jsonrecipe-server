@@ -11,15 +11,13 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Optional;
-
 import com.ianprime0509.jsonrecipe.server.data.RecipeDto;
 import com.ianprime0509.jsonrecipe.server.entities.Recipe;
 import com.ianprime0509.jsonrecipe.server.hateoas.RecipeResourceAssembler;
 import com.ianprime0509.jsonrecipe.server.services.RecipeResourceService;
-
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Optional;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -115,7 +113,8 @@ public class RecipeControllerTest {
     final String newRecipeJson = dummyRecipeJson;
     when(service.add(dummyRecipe)).thenReturn(newRecipeResource);
 
-    mvc.perform(post("/recipes").contentType(MediaType.APPLICATION_JSON_UTF8).content(newRecipeJson))
+    mvc.perform(
+            post("/recipes").contentType(MediaType.APPLICATION_JSON_UTF8).content(newRecipeJson))
         .andExpect(status().isCreated())
         .andExpect(header().string("Location", newRecipeResource.getId().getHref()))
         .andExpect(content().json(newRecipeJson));
@@ -125,7 +124,10 @@ public class RecipeControllerTest {
   public void testSave() throws Exception {
     when(service.save("1", dummyRecipe)).thenReturn(dummyRecipeResource);
 
-    mvc.perform(put("/recipes/{id}", "1").contentType(MediaType.APPLICATION_JSON_UTF8).content(dummyRecipeJson))
+    mvc.perform(
+            put("/recipes/{id}", "1")
+                .contentType(MediaType.APPLICATION_JSON_UTF8)
+                .content(dummyRecipeJson))
         .andExpect(status().isOk())
         .andExpect(content().json(dummyRecipeJson));
   }

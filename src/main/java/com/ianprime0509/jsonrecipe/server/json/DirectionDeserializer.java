@@ -1,11 +1,11 @@
 package com.ianprime0509.jsonrecipe.server.json;
 
-import java.io.IOException;
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.DeserializationContext;
 import com.fasterxml.jackson.databind.deser.std.StdDeserializer;
 import com.ianprime0509.jsonrecipe.server.entities.Direction;
+import java.io.IOException;
 
 @SuppressWarnings("serial")
 public class DirectionDeserializer extends StdDeserializer<Direction> {

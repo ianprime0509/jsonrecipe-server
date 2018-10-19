@@ -4,15 +4,12 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import org.apache.commons.math3.fraction.Fraction;
 
-/**
- * A helper class for working with {@link Fraction} objects.
- */
+/** A helper class for working with {@link Fraction} objects. */
 public final class FractionUtils {
-  /**
-   * The pattern representing the expected mixed number format.
-   */
-  public static final Pattern FRACTION_PATTERN = Pattern.compile(
-      "([1-9][0-9]*)|([1-9][0-9]*) ?/ ?([1-9][0-9]*)|([1-9][0-9]*) ([1-9][0-9]*) ?/ ?([1-9][0-9]*)");
+  /** The pattern representing the expected mixed number format. */
+  public static final Pattern FRACTION_PATTERN =
+      Pattern.compile(
+          "([1-9][0-9]*)|([1-9][0-9]*) ?/ ?([1-9][0-9]*)|([1-9][0-9]*) ([1-9][0-9]*) ?/ ?([1-9][0-9]*)");
 
   private FractionUtils() {}
 

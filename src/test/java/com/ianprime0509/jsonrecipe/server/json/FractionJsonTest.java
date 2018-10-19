@@ -2,6 +2,7 @@ package com.ianprime0509.jsonrecipe.server.json;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
+
 import com.fasterxml.jackson.databind.JsonMappingException;
 import org.apache.commons.math3.fraction.Fraction;
 import org.junit.Test;
@@ -14,8 +15,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 @RunWith(SpringRunner.class)
 @JsonTest
 public class FractionJsonTest {
-  @Autowired
-  private JacksonTester<Fraction> json;
+  @Autowired private JacksonTester<Fraction> json;
 
   @Test
   public void testSerialize_wholeNumber() throws Exception {

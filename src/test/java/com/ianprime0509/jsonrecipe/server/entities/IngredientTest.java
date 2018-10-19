@@ -2,15 +2,14 @@ package com.ianprime0509.jsonrecipe.server.entities;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatIllegalArgumentException;
+
 import java.util.Arrays;
 import org.apache.commons.math3.fraction.Fraction;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.test.context.junit4.SpringRunner;
 
-/**
- * Tests for the {@link Ingredient} class.
- */
+/** Tests for the {@link Ingredient} class. */
 @RunWith(SpringRunner.class)
 public class IngredientTest {
   @Test
@@ -33,14 +32,17 @@ public class IngredientTest {
 
   @Test
   public void testParse_withPreparationInstruction() {
-    assertThat(Ingredient.parse("1 1/2 cups onion, finely chopped")).isEqualTo(
-        new Ingredient(new Fraction(3, 2), "cups", "onion", Arrays.asList("finely chopped")));
+    assertThat(Ingredient.parse("1 1/2 cups onion, finely chopped"))
+        .isEqualTo(
+            new Ingredient(new Fraction(3, 2), "cups", "onion", Arrays.asList("finely chopped")));
   }
 
   @Test
   public void testParse_withMultiplePreparationInstructions() {
-    assertThat(Ingredient.parse("1/2 pound potatoes, diced, peeled")).isEqualTo(
-        new Ingredient(new Fraction(1, 2), "pound", "potatoes", Arrays.asList("diced", "peeled")));
+    assertThat(Ingredient.parse("1/2 pound potatoes, diced, peeled"))
+        .isEqualTo(
+            new Ingredient(
+                new Fraction(1, 2), "pound", "potatoes", Arrays.asList("diced", "peeled")));
   }
 
   @Test
@@ -56,8 +58,9 @@ public class IngredientTest {
   @Test
   public void testToString() {
     assertThat(
-        new Ingredient(new Fraction(1, 2), "pound", "potatoes", Arrays.asList("diced", "peeled")))
-            .hasToString("1/2 pound potatoes, diced, peeled");
+            new Ingredient(
+                new Fraction(1, 2), "pound", "potatoes", Arrays.asList("diced", "peeled")))
+        .hasToString("1/2 pound potatoes, diced, peeled");
   }
 
   @Test

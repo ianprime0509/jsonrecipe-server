@@ -2,13 +2,14 @@ package com.ianprime0509.jsonrecipe.server.json;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
-import java.util.Arrays;
+
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.ianprime0509.jsonrecipe.server.entities.Direction;
 import com.ianprime0509.jsonrecipe.server.entities.DirectionGroup;
 import com.ianprime0509.jsonrecipe.server.entities.Either;
 import com.ianprime0509.jsonrecipe.server.entities.Ingredient;
 import com.ianprime0509.jsonrecipe.server.entities.IngredientGroup;
+import java.util.Arrays;
 import org.apache.commons.math3.fraction.Fraction;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -20,11 +21,9 @@ import org.springframework.test.context.junit4.SpringRunner;
 @RunWith(SpringRunner.class)
 @JsonTest
 public class EitherJsonTest {
-  @Autowired
-  private JacksonTester<Either<Ingredient, IngredientGroup>> ingredientOrGroupJson;
+  @Autowired private JacksonTester<Either<Ingredient, IngredientGroup>> ingredientOrGroupJson;
 
-  @Autowired
-  private JacksonTester<Either<Direction, DirectionGroup>> directionOrGroupJson;
+  @Autowired private JacksonTester<Either<Direction, DirectionGroup>> directionOrGroupJson;
 
   @Test
   public void testSerialize_ingredientOrGroupWithIngredient() throws Exception {
@@ -35,8 +34,12 @@ public class EitherJsonTest {
 
   @Test
   public void testSerialize_ingredientOrGroupWithGroup() throws Exception {
-    assertThat(ingredientOrGroupJson.write(Either.right(new IngredientGroup("Test group",
-        Arrays.asList(new Ingredient(new Fraction(2), "apples")))))).isEqualToJson(
+    assertThat(
+            ingredientOrGroupJson.write(
+                Either.right(
+                    new IngredientGroup(
+                        "Test group", Arrays.asList(new Ingredient(new Fraction(2), "apples"))))))
+        .isEqualToJson(
             "{\"heading\": \"Test group\", \"ingredients\": [{\"quantity\": \"2\", \"unit\": \"each\", \"item\": \"apples\", \"preparation\": []}]}");
   }
 
@@ -48,9 +51,12 @@ public class EitherJsonTest {
 
   @Test
   public void testSerialize_directionOrGroupWithGroup() throws Exception {
-    assertThat(directionOrGroupJson.write(Either.right(
-        new DirectionGroup("Group of directions", Arrays.asList(new Direction("Eat apples."))))))
-            .isEqualTo("{\"heading\": \"Group of directions\", \"directions\": [\"Eat apples.\"]}");
+    assertThat(
+            directionOrGroupJson.write(
+                Either.right(
+                    new DirectionGroup(
+                        "Group of directions", Arrays.asList(new Direction("Eat apples."))))))
+        .isEqualTo("{\"heading\": \"Group of directions\", \"directions\": [\"Eat apples.\"]}");
   }
 
   @Test
@@ -67,10 +73,13 @@ public class EitherJsonTest {
 
   @Test
   public void testDeserialize_ingredientOrGroupWithGroup() throws Exception {
-    assertThat(ingredientOrGroupJson
-        .parse("{\"heading\": \"Test group\", \"ingredients\": [\"2 each apples\"]}"))
-            .isEqualTo(Either.right(new IngredientGroup("Test group",
-                Arrays.asList(new Ingredient(new Fraction(2), "apples")))));
+    assertThat(
+            ingredientOrGroupJson.parse(
+                "{\"heading\": \"Test group\", \"ingredients\": [\"2 each apples\"]}"))
+        .isEqualTo(
+            Either.right(
+                new IngredientGroup(
+                    "Test group", Arrays.asList(new Ingredient(new Fraction(2), "apples")))));
   }
 
   @Test
@@ -87,10 +96,13 @@ public class EitherJsonTest {
 
   @Test
   public void testDeserialize_directionOrGroupWithGroup() throws Exception {
-    assertThat(directionOrGroupJson
-        .parse("{\"heading\": \"Group of directions\", \"directions\": [\"Eat apples.\"]}"))
-            .isEqualTo(Either.right(new DirectionGroup("Group of directions",
-                Arrays.asList(new Direction("Eat apples.")))));
+    assertThat(
+            directionOrGroupJson.parse(
+                "{\"heading\": \"Group of directions\", \"directions\": [\"Eat apples.\"]}"))
+        .isEqualTo(
+            Either.right(
+                new DirectionGroup(
+                    "Group of directions", Arrays.asList(new Direction("Eat apples.")))));
   }
 
   @Test

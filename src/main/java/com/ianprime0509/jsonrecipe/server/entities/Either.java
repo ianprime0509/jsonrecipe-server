@@ -52,16 +52,12 @@ public abstract class Either<L, R> {
     return Left.of(contents);
   }
 
-  /**
-   * Returns whether the wrapped object is of the left type.
-   */
+  /** Returns whether the wrapped object is of the left type. */
   public boolean isLeft() {
     return this instanceof Left;
   }
 
-  /**
-   * Returns whether the wrapped object is of the right type.
-   */
+  /** Returns whether the wrapped object is of the right type. */
   public boolean isRight() {
     return this instanceof Right;
   }

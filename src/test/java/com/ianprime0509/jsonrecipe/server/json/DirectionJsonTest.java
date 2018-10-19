@@ -1,6 +1,7 @@
 package com.ianprime0509.jsonrecipe.server.json;
 
 import static org.assertj.core.api.Assertions.assertThat;
+
 import com.ianprime0509.jsonrecipe.server.entities.Direction;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -12,8 +13,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 @RunWith(SpringRunner.class)
 @JsonTest
 public class DirectionJsonTest {
-  @Autowired
-  private JacksonTester<Direction> json;
+  @Autowired private JacksonTester<Direction> json;
 
   @Test
   public void testSerialize() throws Exception {

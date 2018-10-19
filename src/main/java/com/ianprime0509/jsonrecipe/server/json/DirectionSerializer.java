@@ -1,10 +1,10 @@
 package com.ianprime0509.jsonrecipe.server.json;
 
-import java.io.IOException;
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.databind.SerializerProvider;
 import com.fasterxml.jackson.databind.ser.std.StdSerializer;
 import com.ianprime0509.jsonrecipe.server.entities.Direction;
+import java.io.IOException;
 
 @SuppressWarnings("serial")
 public class DirectionSerializer extends StdSerializer<Direction> {

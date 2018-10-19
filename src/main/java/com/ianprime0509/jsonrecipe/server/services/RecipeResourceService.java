@@ -1,21 +1,19 @@
 package com.ianprime0509.jsonrecipe.server.services;
 
-import java.util.Optional;
 import com.ianprime0509.jsonrecipe.server.data.RecipeDto;
 import com.ianprime0509.jsonrecipe.server.entities.Recipe;
 import com.ianprime0509.jsonrecipe.server.hateoas.RecipeResourceAssembler;
 import com.ianprime0509.jsonrecipe.server.repositories.RecipeRepository;
+import java.util.Optional;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PagedResourcesAssembler;
 import org.springframework.hateoas.PagedResources;
 import org.springframework.hateoas.Resource;
 import org.springframework.stereotype.Service;
-import lombok.RequiredArgsConstructor;
 
-/**
- * A service for retrieving recipe data in the form of a resource.
- */
+/** A service for retrieving recipe data in the form of a resource. */
 @Service
 @RequiredArgsConstructor(onConstructor_ = @Autowired)
 public class RecipeResourceService {
@@ -56,7 +54,7 @@ public class RecipeResourceService {
   /**
    * Replaces an existing recipe in the database.
    *
-   * @param id     the ID of the recipe to replace
+   * @param id the ID of the recipe to replace
    * @param recipe the recipe to save with the given ID
    * @return the recipe that was saved
    */

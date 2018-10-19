@@ -1,6 +1,5 @@
 package com.ianprime0509.jsonrecipe.server.json;
 
-import java.io.IOException;
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.ObjectCodec;
@@ -13,19 +12,18 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.deser.ContextualDeserializer;
 import com.fasterxml.jackson.databind.deser.std.StdDeserializer;
 import com.ianprime0509.jsonrecipe.server.entities.Either;
+import java.io.IOException;
 
 /**
  * A Jackson deserializer for {@link Either}.
  *
- * <p>
- * It is important to note that, when deserializing JSON data as an {@link Either}, this
+ * <p>It is important to note that, when deserializing JSON data as an {@link Either}, this
  * implementation will attempt to deserialize as the left type before attempting to deserialize as
  * the right type. Because Jackson performs certain conversions automatically, such as deserializing
- * a number into a string (1 -> "1"), this implies that attempting to deserialize an
- * {@code Either<String, Integer>} will never result in the right type ({@code Integer}) being
- * found. Other such cases may occur when other implicit conversions are possible, or if the
- * deserializer for the left type is too lax.
- * </p>
+ * a number into a string (1 -> "1"), this implies that attempting to deserialize an {@code
+ * Either<String, Integer>} will never result in the right type ({@code Integer}) being found. Other
+ * such cases may occur when other implicit conversions are possible, or if the deserializer for the
+ * left type is too lax.
  */
 @SuppressWarnings("serial")
 public class EitherDeserializer extends StdDeserializer<Either<?, ?>>

@@ -1,6 +1,5 @@
 package com.ianprime0509.jsonrecipe.server.json;
 
-import java.io.IOException;
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.ObjectCodec;
@@ -10,6 +9,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.deser.std.StdDeserializer;
 import com.ianprime0509.jsonrecipe.server.entities.Location;
 import com.ianprime0509.jsonrecipe.server.entities.WebLocation;
+import java.io.IOException;
 
 /**
  * A deserializer for {@link Location}s that resolves the correct concrete type (web, book, etc.).

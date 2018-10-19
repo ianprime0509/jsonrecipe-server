@@ -1,8 +1,5 @@
 package com.ianprime0509.jsonrecipe.server.json;
 
-import java.net.URL;
-import java.util.List;
-
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -17,7 +14,8 @@ import com.ianprime0509.jsonrecipe.server.entities.Location;
 import com.ianprime0509.jsonrecipe.server.entities.Recipe;
 import com.ianprime0509.jsonrecipe.server.entities.Source;
 import com.ianprime0509.jsonrecipe.server.entities.WebLocation;
-
+import java.net.URL;
+import java.util.List;
 import org.apache.commons.math3.fraction.Fraction;
 
 /**
@@ -30,34 +28,36 @@ public class RecipeJacksonModule extends SimpleModule {
   // class we wish to annotate, annotating the skeleton with the annotations we want, and then
   // register it as a mixin for the actual entity class. Jackson will treat the annotations on the
   // mixin class as if they had been applied to the entity class.
-  private static abstract class RecipeMixin {
-    @JsonIgnore
-    private String recipeId;
+  private abstract static class RecipeMixin {
+    @JsonIgnore private String recipeId;
 
     @JsonCreator
-    public RecipeMixin(@JsonProperty("title") String title,
+    public RecipeMixin(
+        @JsonProperty("title") String title,
         @JsonProperty("ingredients") List<Either<Ingredient, IngredientGroup>> ingredients,
         @JsonProperty("directions") List<Either<Direction, DirectionGroup>> directions) {}
   }
 
-  private static abstract class IngredientGroupMixin {
+  private abstract static class IngredientGroupMixin {
     @JsonCreator
-    public IngredientGroupMixin(@JsonProperty("heading") String heading,
+    public IngredientGroupMixin(
+        @JsonProperty("heading") String heading,
         @JsonProperty("ingredients") List<Ingredient> ingredients) {}
   }
 
-  private static abstract class DirectionGroupMixin {
+  private abstract static class DirectionGroupMixin {
     @JsonCreator
-    public DirectionGroupMixin(@JsonProperty("heading") String heading,
+    public DirectionGroupMixin(
+        @JsonProperty("heading") String heading,
         @JsonProperty("directions") List<Direction> directions) {}
   }
 
-  private static abstract class SourceMixin {
+  private abstract static class SourceMixin {
     @JsonCreator
     public SourceMixin(@JsonProperty("author") String author) {}
   }
 
-  private static abstract class WebLocationMixin {
+  private abstract static class WebLocationMixin {
     @JsonCreator
     public WebLocationMixin(@JsonProperty("url") URL url) {}
   }

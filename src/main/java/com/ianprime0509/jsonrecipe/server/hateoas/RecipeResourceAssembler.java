@@ -2,6 +2,7 @@ package com.ianprime0509.jsonrecipe.server.hateoas;
 
 import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
 import static org.springframework.hateoas.mvc.ControllerLinkBuilder.methodOn;
+
 import com.ianprime0509.jsonrecipe.server.controllers.RecipeController;
 import com.ianprime0509.jsonrecipe.server.data.RecipeDto;
 import com.ianprime0509.jsonrecipe.server.entities.Recipe;
